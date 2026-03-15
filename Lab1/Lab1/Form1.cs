@@ -132,6 +132,7 @@ namespace Lab1
         #endregion
 
 
+        #region Виженер
         public string EncryptVijenerText(string str, string secretKey)
         {
             textDataGridView.Columns.Add("clearColumn", "Исходный символ");
@@ -229,6 +230,7 @@ namespace Lab1
             }
             return shiphroText;
         }
+        #endregion
 
         public Form1()
         {
