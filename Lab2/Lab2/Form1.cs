@@ -7,7 +7,7 @@ namespace Lab2
         //вариант 7, степень 29
 
         private byte[] _fileBytes;
-        private byte[] _resultBytes;
+        private int[] _resultInt;
         private const int Degree = 29;
 
         public Form1()
@@ -21,7 +21,7 @@ namespace Lab2
         #region работа с файлами
         private void saveFileButton_Click(object sender, EventArgs e)
         {
-            if (_resultBytes == null)
+            if (_resultInt == null)
             {
                 MessageBox.Show("Нет данных для сохранения.");
                 return;
@@ -29,7 +29,7 @@ namespace Lab2
             saveFileDialog1.FileName = "";
             if (saveFileDialog1.ShowDialog() == DialogResult.OK)
             {
-                File.WriteAllBytes(saveFileDialog1.FileName, _resultBytes);
+                File.WriteAllBytes(saveFileDialog1.FileName, _resultInt);
                 MessageBox.Show("Файл успешно сохранен.");
             }
         }
@@ -92,14 +92,14 @@ namespace Lab2
 
                 for (int bit = 0; bit < 8; bit++)
                 {
-                    uint Ki = register & 1;
-                    keyByte = (byte)((keyByte << 1) | Ki);
+                    uint Ki = (register >> 28) & 1; 
+                    keyByte = (byte)((keyByte << 1) | Ki); 
                     uint fb = ((register >> 28) ^ (register >> 1)) & 1;
-                    register = (register >> 1) | (fb << 28); 
+                    register = ((register << 1) & 0x1FFFFFFF) | fb;
 
-                    keyVisualizer.Append(Ki+'\n');
+                    keyVisualizer.Append(Ki);
                 }
-
+                keyVisualizer.Append("\n");
                 _resultBytes[i] = (byte)(_fileBytes[i] ^ keyByte);
 
                 finalListBox.Items.Add(Convert.ToString(_resultBytes[i], 2).PadLeft(8, '0'));
