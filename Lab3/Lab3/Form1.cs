@@ -69,7 +69,7 @@ namespace Lab3
                 MessageBox.Show("q не число");
                 return false;
             }
-            if (!CheckNumSimple(p))
+            if (!CheckNumSimple(q))
             {
                 MessageBox.Show("q не простое");
                 return false;
@@ -102,7 +102,7 @@ namespace Lab3
             return true;
         }
 
-        public static int EvclidEx(int d, int fr)
+        public int EvclidEx(int d, int fr)
         {
             int m0 = fr, t, q;
             int x0 = 0, x1 = 1;
@@ -218,7 +218,6 @@ namespace Lab3
 
                             for (int i = 0; i < encryptedData.Length; i++)
                             {
-                                // Расшифровка M = C^k mod r
                                 decryptedBytes[i] = (byte)FastPower(encryptedData[i], k, r);
 
                                 sb.Append(decryptedBytes[i] + " ");
